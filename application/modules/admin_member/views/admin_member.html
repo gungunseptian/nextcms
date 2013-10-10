@@ -1,0 +1,322 @@
+<script type="text/javascript">
+function checkAll()
+{
+	var choice_num = document.getElementsByName("choices").length;
+	var choice_val = document.getElementsByName("choices");
+	if(document.form_list.master.checked== true)
+	{
+		for(var i=0; i < choice_num; i++)
+		{
+			choice_val[i].checked=true;
+		}
+	}
+	else
+	{
+		for(var i=0; i < choice_num; i++)
+		{
+			choice_val[i].checked=false;
+		}
+	}
+}
+
+$(document).ready(function() 
+{
+	$('#delete_btn_up').click(function(e) 
+	{
+		confirm("Are you sure ?","javascript:del()");
+	});
+	
+	$('#delete_btn_down').click(function(e) 
+	{
+		confirm("Are you sure ?","javascript:del()");
+	});
+	$('#publish_btn_up').click(function(e) 
+	{
+		confirm("Are you sure ?","javascript:pub()");
+	});
+	
+	$('#publish_btn_down').click(function(e) 
+	{
+		confirm("Are you sure ?","javascript:pub()");
+	});
+	$('#featured_btn_up').click(function(e) 
+	{
+		confirm("Are you sure ?","javascript:feat()");
+	});
+	
+	$('#featured_btn_down').click(function(e) 
+	{
+		confirm("Are you sure ?","javascript:feat()");
+	});
+});
+
+function del()
+{
+			var queue = timer = 0;
+			var checkedLength = 0;
+			var choice_num = document.getElementsByName("choices").length; 
+			var choice_val = document.getElementsByName("choices");
+			for(var j=0; j < choice_num; j++)
+			{
+				
+				if(choice_val[j].checked==true)
+				{
+					checkedLength++;
+					var rec = choice_val[j].value;
+					$.ajax({
+					  url: '{base_url}admincontrol/{title_link}/delete/'+choice_val[j].value,
+					  dataType: 'json',
+					  success: function(response) {
+						queue++;
+						
+						/*cek status response balik*/
+						if(response.status == 1){
+							$("#record"+response.id).fadeOut();
+							timer = 1000;
+						}else{
+							 $("#record"+response.id).addClass("zebra-error");
+							alert("Can't remove record(s), you have set this record to unpublish first");
+							timer = 5000;
+						}
+						/*end cek status */
+						
+						if(checkedLength == queue){
+								var pg = $("#pg").val();
+								var search1_parm = $("#search1_parm").val();
+								var search2_parm = $("#search2_parm").val();
+								var search3_parm = $("#search3_parm").val();
+								var search4_parm = $("#search4_parm").val();
+								setTimeout("goto('"+search1_parm+"','"+search2_parm+"','"+search3_parm+"','"+search4_parm+"',"+pg+")",timer);
+						}
+						
+					  }
+					});
+				}
+			}
+}
+
+function pub()
+{
+	var queue = timer = 0;
+			var checkedLength = 0;
+			var choice_num = document.getElementsByName("choices").length; 
+			var choice_val = document.getElementsByName("choices");
+			for(var j=0; j < choice_num; j++)
+			{
+				
+				if(choice_val[j].checked==true)
+				{
+					checkedLength++;
+					var rec = choice_val[j].value;
+					$.ajax({
+					  url: '{base_url}admincontrol/widget/publish/{title_link}/'+choice_val[j].value,
+					  dataType: 'json',
+					  success: function(response) {
+						queue++;
+						
+						/*cek status response balik*/
+						if(response.status == 1){
+							$("#pub"+response.id).text(response.val);
+							$("#record"+response.id).css("background","#defde0");
+							timer = 1000;
+						}else{
+							$("#record"+response.id).addClass("zebra-error"); 
+							alert("Change record(s) failed!");
+							timer = 5000;
+						}
+						/*end cek status */
+						
+						if(checkedLength == queue){
+								var pg = $("#pg").val();
+								var search1_parm = $("#search1_parm").val();
+								var search2_parm = $("#search2_parm").val();
+								var search3_parm = $("#search3_parm").val();
+								var search4_parm = $("#search4_parm").val();
+								setTimeout("goto('"+search1_parm+"','"+search2_parm+"','"+search3_parm+"','"+search4_parm+"',"+pg+")",timer);
+						}
+						
+					  }
+					});
+				}
+		}
+}
+
+function goto(search1_parm,search2_parm,pg)
+{
+	window.location='{base_url}admincontrol/{title_link}/pages/'+encodeURIComponent(search1_parm)+'/'+encodeURIComponent(search2_parm)+'/{per_page}/'+pg;
+}
+
+function set_search(){
+	document.forms["search"].submit();
+}
+
+function openclose_search()
+{
+		if($("#search_box").css("display") == "none"){
+			$("#close").text('x');
+			$("#search_box").css("display","");
+			$.cookie('search_{title_link}',1,{ path: '/' });
+		}else{
+			$("#close").text('+');
+			$("#search_box").css("display","none");;
+			$.cookie('search_{title_link}',null,{ path: '/' });
+		}
+}
+
+
+	var config = {
+          '#ref1'           : {},
+          '#ref1-deselect'  : {allow_single_deselect:true},
+          '#ref1-no-single' : {disable_search_threshold:10},
+          '#ref1-no-results': {no_results_text:'Oops, nothing found!'},
+          '#sref1-width'     : {width:"95%"}
+        }
+        for (var selector in config) {
+          $(selector).chosen(config[selector]);
+    }
+	
+	var config = {
+          '#ref2'           : {},
+          '#ref2-deselect'  : {allow_single_deselect:true},
+          '#ref2-no-single' : {disable_search_threshold:10},
+          '#ref2-no-results': {no_results_text:'Oops, nothing found!'},
+          '#sref2-width'     : {width:"95%"}
+        }
+        for (var selector in config) {
+          $(selector).chosen(config[selector]);
+    }
+	
+	var config = {
+          '#ref3'           : {},
+          '#ref3-deselect'  : {allow_single_deselect:true},
+          '#ref3-no-single' : {disable_search_threshold:10},
+          '#ref3-no-results': {no_results_text:'Oops, nothing found!'},
+          '#sref3-width'     : {width:"95%"}
+        }
+        for (var selector in config) {
+          $(selector).chosen(config[selector]);
+    }
+
+    $("[rel=tooltip]").tooltip();
+    
+</script>
+
+        <ul id="breadcrumb">
+            <li><a href="{base_url}admincontrol/index/" title="Home"><span class="icon-home"></span></a></li>
+            <li><span>{title_head} List</span></li>
+        </ul>
+        <div class="clear"></div>
+        
+        <div class="row">
+          <div class="span_full">
+            <h2>List of {title_head}</h2>
+	    
+	   		<form id="search" method="POST" action="{base_url}admincontrol/{title_link}/search" class="navbar-inner">
+                <button class="close" type="button" id="close" onclick="openclose_search();">+</button>
+                <h3>Search</h3>
+                <div id="search_box">
+                    <table border=0>
+					    <tr>
+					    	<td>RFID Number</td><td> <input type="text"  name="search1" value="{search1_val}"></td>
+					    </tr>
+						<tr>
+					    	<td>Variant</td><td>{refDropdown2}</td>
+					    </tr>
+						<tr>
+					    	<td>Status</td><td>{refDropdown3}</td>
+					    </tr>
+					    <tr>
+					    	<td>Publish</td><td>{refDropdown}</td>
+					    </tr>
+					    </table>
+					<input type="hidden" value="{per_page}" name="per_page"/>
+                    <input type="button" class="btn info" value="Search" onclick="set_search()" />  
+                    <input type="button" class="btn info" value="Reset" onclick="window.location='{base_url}admincontrol/{title_link}';" />
+                </div>
+            </form>
+	     
+           <form name="form_list" method="POST" id="form_list" class="navbar-content" onsubmit="return false;">
+            <div class="panel-up">
+                 <div class="navigation">
+					<input type="text" value="{per_page}" maxlength="3" class="perpage" onchange="sendLimit(this.value)" onkeypress="validateLimit(event,this.value)"/>
+                 	<a href="#"  rel="tooltip" id="publish_btn_up" style="{display_record}" class="btn info"/ title="Publish / Not Publish"><span class="icon-ok"></span></a>
+					<a href="#" rel="tooltip" id="delete_btn_up" style="{display_record}" class="btn info"/ title="Delete"><span class="icon-trash"></span></a>
+					<a rel="tooltip" href="{base_url}admincontrol/{title_link}/edit/0" id="add_btn" class="btn info" title="Add"/><span class="icon-plus"></span></a>
+                 </div>
+                 <div class="pagination pagination-right">{paging}</div>
+             </div>
+             <div class="clear"></div>
+            <p>Total Records {jum_record}</p>
+            <table class="attr" style="{display_record}">
+            	<tr>
+                    <td width="5%"><input type="checkbox" name="master" onclick="checkAll();"/></td>
+                    <td width="5%">No.</td>
+                    <td width="20%">RFID Number</td>
+                    <td width="10%">Publish</td>
+                    <td width="10%">Create date</td>
+                 </tr>
+             </table>
+	    
+             <table class="table table-color">
+              	{list}
+            	<tr class="" id="record{id}">
+                    <td width="5%"><input type="checkbox" name="choices" value="{id}"/></td>
+                    <td width="5%">{no}</td>
+                    <td width="20%"><a href="{base_url}admincontrol/{title_link}/edit/{id}" class="pub"><b>{title}</b></a></td>
+                    <td width="20%">{rfid_number}</td>
+		      		<td width="10%"><div id="pub{id}">{publish}</div></td>
+                    <td width="10%">{create_date}</td>
+                </tr>
+                {/list}
+             </table>
+	     
+             <div class="panel-down">
+                 <div class="navigation">
+					<input type="text" value="{per_page}" maxlength="3" class="perpage" onchange="sendLimit(this.value)" onkeypress="validateLimit(event,this.value)"/>
+                 	<a href="#"  rel="tooltip" id="publish_btn_down" style="{display_record}" class="btn info"/ title="Publish / Not Publish"><span class="icon-ok"></span></a>
+					<a href="#" rel="tooltip" id="delete_btn_down" style="{display_record}" class="btn info"/ title="Delete"><span class="icon-trash"></span></a>
+					<a rel="tooltip" href="{base_url}admincontrol/{title_link}/edit/0" id="add_btn" class="btn info" title="Add"/><span class="icon-plus"></span></a>
+                 </div>
+                 <div class="pagination pagination-right">
+				 {paging}
+				 </div>
+             </div>
+             <div class="clear"></div>
+             	 <input type="hidden" name="search_path" value="{search1_parm}" id="search1_parm"/>
+				 <input type="hidden" name="search_path" value="{search2_parm}" id="search2_parm"/>
+				 <input type="hidden" name="search_path" value="{search3_parm}" id="search3_parm"/>
+				 <input type="hidden" name="search_path" value="{search4_parm}" id="search4_parm"/>
+            	 <input type="hidden" name="pg" value="{pg}" id="pg"/>
+             </form>
+          </div>
+</div>
+<script type="text/javascript">
+
+function validateLimit(evt,val) {
+		var theEvent = evt || window.event;
+		var key = theEvent.keyCode || theEvent.which;
+		var keyA = theEvent.keyCode || theEvent.which;
+		key = String.fromCharCode( key );
+		var regex = /[0-9]/;
+			if( !regex.test(key) && keyA != 8 && keyA != 46 && keyA != 37 && keyA != 39 && keyA != 13) {
+				theEvent.returnValue = false;
+				theEvent.preventDefault();
+			}
+	}
+	
+function sendLimit(val)
+{
+	document.location="{base_url}admincontrol/{title_link}/pages/{search1_parm}/{search2_parm}/{search3_parm}/{search4_parm}"+val;
+}
+
+function read_cookie_search(){
+	if($.cookie('search_{title_link}') == 1){
+		$("#close").text('x');
+		$("#search_box").css("display","");
+	}else{
+		$("#close").text('+');
+		$("#search_box").css("display","none");
+	}
+}
+read_cookie_search();
+</script>

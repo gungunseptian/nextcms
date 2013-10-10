@@ -1,0 +1,108 @@
+#mask {
+  position:absolute;
+  left:0;
+  top:0;
+  z-index:9000;
+  background-color:#000;
+  display:none;
+}
+  
+#boxes .window {
+  position:absolute;
+  left:0;
+  top:0;
+  width:440px;
+  height:200px;
+  display:none;
+  z-index:9999;
+  padding:20px;
+}
+
+#boxes #dialog {
+  height: 160px;
+  padding: 10px;
+  width: 300px;
+  background-color:#222;
+}
+
+#boxes #dialog #display-login{
+	background: none repeat scroll 0 0 #990000;
+    border: 3px solid #222222;
+    padding: 3px;
+	color: white;
+    font-size: 13px;
+}
+
+#boxes #dialog-groups {
+  height: 260px;
+  padding: 10px;
+  width: 400px;
+  background-color:#222;
+}
+
+#boxes #dialog-groups #display-groups{
+	background: none repeat scroll 0 0 #990000;
+    border: 3px solid #222222;
+    padding: 3px;
+	color: white;
+    font-size: 13px;
+}
+
+
+#boxes #dialog-groups .close{
+  background: url("../../images/close.png") no-repeat scroll 0 0 transparent;
+  display: block;
+  height: 35px;
+  margin-right: -15px;
+  margin-top: -25px;
+  position: absolute;
+  right: 0;
+  width: 35px;
+}
+
+
+
+#boxes #dialog-topics {
+  height: 300px;
+  padding: 10px;
+  width: 400px;
+  background-color:#222;
+}
+
+#boxes #dialog-topics #display-topics{
+	background: none repeat scroll 0 0 #990000;
+    border: 3px solid #222222;
+    padding: 3px;
+	color: white;
+    font-size: 13px;
+}
+
+
+#boxes #dialog-topics .close{
+  background: url("../../images/close.png") no-repeat scroll 0 0 transparent;
+  display: block;
+  height: 35px;
+  margin-right: -15px;
+  margin-top: -25px;
+  position: absolute;
+  right: 0;
+  width: 35px;
+}
+
+
+
+#box #dialog .pad {
+    padding: 8px 12px;
+}
+
+#boxes #dialog .close {
+    background: url("../../images/close.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 35px;
+    margin-right: -15px;
+    margin-top: -25px;
+    position: absolute;
+    right: 0;
+    width: 35px;
+}
+

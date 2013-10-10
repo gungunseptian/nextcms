@@ -1,0 +1,58 @@
+<script>
+	  var config = {
+          '#ref2'           : {},
+          '#ref2-deselect'  : {allow_single_deselect:true},
+          '#ref2-no-single' : {disable_search_threshold:10},
+          '#ref2-no-results': {no_results_text:'Oops, nothing found!'},
+          '#ref2-width'     : {width:"95%"}
+        }
+        for (var selector in config) {
+          $(selector).chosen(config[selector]);
+    }
+</script>
+
+        
+        <ul id="breadcrumb">
+            <li><a title="Home" href="{base_url}admincontrol/index/"><span class="icon-home"></span></a></li>
+            <li><a href="{base_url}admincontrol/{title_link}"><span>{title_head} List</span></a></li>
+            <li><span>Edit</span></li>
+        </ul>
+        <div class="clear"></div>
+        
+
+
+        
+        <div class="row">
+          <div class="span14">
+
+            {notification}
+            <div class="alert-message {msg_class}" data-alert="alert" >
+                <a class="close" data-dismiss="alert" href="#">&times;</a>
+                <p><strong>Notification</strong><br />{msg_title}</p>
+          	</div>
+            {/notification}
+	    
+
+	    <h2>Edit</h2>
+            {list}
+            <form name="form_list" method="POST" action="{base_url}admin_{title_link}/submit" enctype="multipart/form-data" class="navbar-content">
+                
+                 <p>Title</p>
+                 <input type="input" name="title" value="{title}"/>
+                 <hr />
+				 
+                 <p>Publish</p>
+                 {refDropdown}
+                 <hr />
+
+                 <p>Created Date</p>
+                 <input type="input" name="title" disabled='disabled' value="{create_date}"/>
+                 <hr />
+				
+                 <input type="button" class="btn info" value="save" id="save_btn" onclick="document.form_list.submit();"/>
+                 <a href="{base_url}admincontrol/{title_link}"><input type="button" class="btn info" value="cancel"/></a>
+                 <input type="hidden" name="id" value="{id}"/>
+	    </form>
+            {/list}
+        </div>
+</div>

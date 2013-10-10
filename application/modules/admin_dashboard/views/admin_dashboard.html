@@ -1,0 +1,89 @@
+		<script type="text/javascript">
+		var chart;
+		$(document).ready(function() {
+			chart = new Highcharts.Chart({
+				chart: {
+					renderTo: 'container',
+					defaultSeriesType: 'line',
+					margin: [50, 150, 60, 80]
+				},
+				title: {
+					text: 'Monthly Purchases Orders',
+					style: {
+						margin: '0' // center it
+					}
+				},
+				subtitle: {
+					text: '',
+					style: {
+						margin: '0' // center it
+					}
+				},
+				xAxis: {
+					categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+						'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+					title: {
+						text: 'Month'
+					}
+				},
+				yAxis: {
+					title: {
+						text: ''
+					},
+					plotLines: [{
+						value: 0,
+						width: 1,
+						color: '#808080'
+					}]
+				},
+				tooltip: {
+					formatter: function() {
+			                return '<b>'+ this.series.name +'</b><br/>'+this.x +': '+ this.y +' IDR';
+					}
+				},
+				legend: {
+					layout: 'vertical',
+					style: {
+						left: 'auto',
+						bottom: 'auto',
+						right: '10px',
+						top: '100px'
+					}
+				},
+				series: [{
+						name: 'Purchases Orders',
+						data: [{total_month_order}]
+					}]
+			});
+			
+			
+		});
+		</script>
+        <ul id="breadcrumb">
+            <li><a href="{base_url}admincontrol/index/" title="Home"><span class="icon-home"></span></a></li>
+        </ul>
+        <div class="clear"></div>
+        
+        
+        <div class="row">
+          <div class="span9">
+            <h2>Dashboard</h2>
+            <p class="dashboard"></p>
+          </div>
+          <div class="clear"></div>
+		  <div class="contentdashboard">
+       			<div id="rightnow">
+                    <h3 class="reallynow">
+                        <span>Welcome to {site_name} admin site</span>
+                        <br>
+                    </h3>
+				   <!--  <p class="youhave">You have {total_cust} customers, {total_cust_new} new customers and {total_purchase} new purchases order, today you made Rp. {total_amount_now} in sales and a total of <strong>Rp. {total_amount_max} profit </strong>
+                    </p> -->
+				</div>
+          </div>    
+              
+           
+			<!-- dashboard -->
+		  
+      </div>
+</div>

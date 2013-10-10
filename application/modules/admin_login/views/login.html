@@ -1,0 +1,38 @@
+            <script>
+				function placeholders(val,type){
+					if(type == "u"){
+						if($('#username').val() == "Username"){
+							$('#username').val('');
+						}else if($('#username').val() == ""){
+							$('#username').val('Username');
+						}
+					}else{
+						if($('#password').val() == "Password"){
+							$('#password').val('');
+						}else if($('#password').val() == ""){
+							$('#password').val('Password');
+						}
+					}
+				}
+			</script>
+			<div class="err">
+				{notification}
+            </div>
+
+            <form id="form_login" name="form_login" method="POST" action="{base_url}admin_login/submit">
+            	<h1>NEXT CMS</h1>
+                <p><span>Login</span></p>
+                
+                <div class="clear"></div>
+                
+                <div class="styleborder">
+                    <p><input type="text" id="username" class="text" name="username" value="Username" onclick="placeholders(this.value,'u');" onblur="placeholders(this.value,'u');"/></p>
+                    <p><input type="password" id="password" class="text pass" name="password" value="Password"  onclick="placeholders(this.value,'p');" onblur="placeholders(this.value,'p');"/></p>
+                    <p><input type="submit" class="butlogin submit" value="Login" /></p>
+                    
+                    <div class="clear"></div>
+                </div>
+            </form>
+            
+            <div class="clear"></div>
+            

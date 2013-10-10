@@ -1,0 +1,25 @@
+<script>
+
+   var config = {
+      '#ref1'           : {},
+      '#ref1-deselect'  : {allow_single_deselect:true},
+      '#ref1-no-single' : {disable_search_threshold:10},
+      '#ref1-no-results': {no_results_text:'Oops, nothing found!'},
+      '#ref1-width'     : {width:"95%"}
+    }
+
+    for (var selector in config) {
+      $(selector).chosen(config[selector]);
+    }
+
+// $(function(){
+// 		$("select#ref2").multiselect({
+// 		     height: 175
+// 			}
+// 		);
+// 	});
+</script>
+
+<p>Menu</p>
+{ref1}
+<hr />   
